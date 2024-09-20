@@ -27,6 +27,10 @@ public class UserController {
 		return "Hello user, here is your session id:  " + request.getSession().getId();
 	}
 	
+	@GetMapping("/users")
+	public List<Users> getUsers() {
+		return userService.getAllUsers();
+	}
 	
 	@PostMapping("/register")
 	public ResponseEntity<Users> postMethodName(@RequestBody Users user) {
@@ -38,10 +42,13 @@ public class UserController {
 		return new ResponseEntity<Users>(saveUser, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/users")
-	public List<Users> getUsers() {
-		return userService.getAllUsers();
+	@PostMapping("/login")
+	public String postLogin(@RequestBody Users user) {
+		//System.out.println(user);
+		return userService.verify(user);
 	}
+	
+	
 	
 	
 	
